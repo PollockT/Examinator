@@ -75,7 +75,9 @@ namespace Examinator.plugins {
 
         public string toXML() {
             StringBuilder sb = new StringBuilder();
-            //sb.AppendFormat(@"<Question type=""{0}"" correct=""{1}"">\n", name, correctAnswerIndex);
+            QuestionTypeAttribute name = (QuestionTypeAttribute)this.GetType().GetCustomAttributes(
+                                                                typeof(QuestionTypeAttribute), false).First();
+            sb.AppendFormat(@"<Question type=""{0}"" correct=""{1}"">\n", name.type, correctAnswerIndex);
             sb.AppendFormat("\t<Text>{0}</Text>\n", value);
             for (int x = 0; x < answers.Count; x++) {
                 sb.AppendFormat("\t<Answer id=\"{0}\">{1}</Answer>\n", x, answers[x]);

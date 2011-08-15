@@ -31,6 +31,7 @@
             // 
             // questionType
             // 
+            this.questionType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.questionType.FormattingEnabled = true;
             this.questionType.Location = new System.Drawing.Point(29, 38);
             this.questionType.Name = "questionType";

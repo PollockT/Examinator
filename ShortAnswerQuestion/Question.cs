@@ -9,17 +9,17 @@ using Examinator;
 namespace Examinator.plugins {
 
     [QuestionType("ShortAnswer")]
-    public class Question : IQuestion {
+    public class ShortAnswerQuestion : IQuestion {
         public event PropertyChangedEventHandler PropertyChanged;
-        string _question;
-        List<string> keywords;
+        internal List<string> keywords;
 
-        Question() : this(""){
+        ShortAnswerQuestion() : this(""){
         }
 
-        Question(string xml) {
-            _question = "";
+        ShortAnswerQuestion(string xml) {
+            _value = "";
             keywords = new List<string>();
+            _questionForm = new QuestionForm(this);
             if (!String.IsNullOrEmpty(xml)) {
                 fromXML(xml);
             }
@@ -57,7 +57,9 @@ namespace Examinator.plugins {
 
         public string toXML() {
             StringBuilder sb = new StringBuilder();
-            //sb.AppendFormat(@"<Question type=""{0}"">\n", name);
+            QuestionTypeAttribute name = (QuestionTypeAttribute)this.GetType().GetCustomAttributes(
+                                                                typeof(QuestionTypeAttribute), false).First();
+            sb.AppendFormat(@"<Question type=""{0}"">\n", name.type);
             sb.AppendFormat("\t<Text>{0}</Text>\n", value);
             sb.AppendLine("\t<Keywords>");
             foreach(string keyword in keywords){
